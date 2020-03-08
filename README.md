@@ -31,7 +31,7 @@ $ mailmap-linter
 
 ## Use inside your CI
 
-You can use the official Nix docker image: https://hub.docker.com/r/nixos/nix
+Use Nixos/nix as the base image for your Job: https://hub.docker.com/r/nixos/nix
 
 Then install and use with the same commands for the local build
 
