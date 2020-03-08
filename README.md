@@ -13,6 +13,10 @@ Small, easy to use, easy to install tool to lint your git mailmap
 
 ## Installation
 
+Given you've installed Nix (https://nixos.org/nix/download.html)
+
+Run the following command:
+
 ```bash
 $ nix-env -i -f https://github.com/kamadorueda/mailmap-linter/archive/master.tar.gz
 ```
