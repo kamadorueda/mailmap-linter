@@ -24,11 +24,10 @@ let
 
       echo '[INFO] Computing contributors'
       mapfile -t 'authors' < \
-        <(git -P log --format='%aN <%aE>' \
-            | LC_ALL=C sort \
-            | uniq;
-          git -P log --format='%cN <%cE>' \
-            | LC_ALL=C sort \
+        <((
+                git -P log --format='%aN <%aE>' \
+            &&  git -P log --format='%cN <%cE>'
+          ) | LC_ALL=C sort \
             | uniq)
 
       echo '[INFO] Reading current .mailmap'
@@ -41,7 +40,7 @@ let
       for mapping in "''${mailmap[@]}"
       do
         line_number=$((line_number + 1))
-        if echo "$mapping" | grep -P "$format"
+        if echo "$mapping" | grep -qP "$format"
         then
           echo "  [INFO] Ok: Line $line_number: $mapping"
         else
