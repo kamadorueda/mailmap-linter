@@ -2,7 +2,7 @@
 
 ## Description
 
-Small and easy to install tool lint your git mailmap
+Small, easy to use, easy to install tool to lint your git mailmap
 
 ## Verifications
 
