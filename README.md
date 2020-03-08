@@ -9,7 +9,7 @@ Small, easy to use, easy to install tool to lint your git mailmap
 - Mailmap file (.mailmap) must exist
 - Mailmap must be sorted
 - All authors in git history must be mapped
-- All authors must conform to: Name FamilyName <email@provider.com>
+- All authors must conform to: `Name FamilyName <email@provider.com>`
 
 ## Installation
 
