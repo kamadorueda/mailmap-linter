@@ -25,8 +25,8 @@ let
       echo '[INFO] Computing contributors'
       mapfile -t 'authors' < \
         <((
-                git -P log --format='%aN <%aE>' \
-            &&  git -P log --format='%cN <%cE>'
+                git -P log --format='%an <%ae>' \
+            &&  git -P log --format='%cn <%ce>'
           ) | LC_ALL=C sort \
             | uniq)
 
@@ -59,6 +59,7 @@ let
           if [[ $mapping == *"$author"* ]]
           then
             found=true
+            break
           fi
         done
 
