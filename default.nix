@@ -34,16 +34,14 @@ let
       mapfile -t 'mailmap' < \
         .mailmap
 
-      echo '[INFO] Veryting .mailmap format'
+      echo '[INFO] Veryfing .mailmap format'
       line_number=0
       format='^[A-Z][a-z]+ [A-Z][a-z]+ <.*> (.*?) <.*?>$'
       for mapping in "''${mailmap[@]}"
       do
         line_number=$((line_number + 1))
-        if echo "$mapping" | grep -qP "$format"
+        if ! echo "$mapping" | grep -qP "$format"
         then
-          echo "  [INFO] Ok: Line $line_number: $mapping"
-        else
           echo "  [ERROR] Expected: $format"
           echo "          Line $line_number: $mapping"
           exit 1
