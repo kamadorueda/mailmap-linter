@@ -25,8 +25,8 @@ let
       echo '[INFO] Computing contributors'
       mapfile -t 'authors' < \
         <((
-                git -P log --format='%an <%ae>' \
-            &&  git -P log --format='%cn <%ce>'
+                git -P log --format='%aN <%aE>' \
+            &&  git -P log --format='%cN <%cE>'
           ) | LC_ALL=C sort \
             | uniq)
 
@@ -49,6 +49,7 @@ let
       done
 
       echo '[INFO] Veryfing that every author is in the .mailmap'
+      success=true
       for author in "''${authors[@]}"
       do
         echo "  [INFO] Veryfing: $author"
@@ -66,9 +67,14 @@ let
         if test "$found" != "true"
         then
           echo "  [ERROR] Please add a .mailmap entry for: $author"
-          exit 1
+          success=false
         fi
       done
+
+      if test "$success" != 'true'
+      then
+        exit 1
+      fi
 
       echo '[INFO] Veryfing that .mailmap is sorted'
       if LC_ALL=C sort --check=silent .mailmap
