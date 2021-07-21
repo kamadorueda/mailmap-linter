@@ -86,13 +86,13 @@ let
       fi
     '';
 in
-  stdenv.mkDerivation {
-    name = "mailmap-linter";
+stdenv.mkDerivation {
+  name = "mailmap-linter";
 
-    installPhase = ''
-      mkdir -p $out/bin
-      install ${wrapper}/bin/* $out/bin
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    install ${wrapper}/bin/* $out/bin
+  '';
 
-    src = ./.;
-  }
+  src = ./.;
+}
