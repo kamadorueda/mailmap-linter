@@ -38,7 +38,7 @@ let
 
       echo '[INFO] Veryfing .mailmap format'
       line_number=0
-      format='^[A-Z][a-z]+ [A-Z][a-z]+ <.*> (.*?) <.*?>$'
+      format='^[A-Z][[:alpha:]]+ [A-Z][[:alpha:]]+ <.*> (.*?) <.*?>$'
       for mapping in "''${mailmap[@]}"
       do
         line_number=$((line_number + 1))
