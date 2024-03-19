@@ -13,6 +13,8 @@ with nixpkgs; let
 
     export PATH="${lib.makeBinPath dependencies}"
 
+    mailmap_exclude=()
+
     echo '[INFO] Veryfing if .mailmap exists'
     test -e .mailmap \
       ||  {
@@ -31,6 +33,24 @@ with nixpkgs; let
     echo '[INFO] Reading current .mailmap'
     mapfile -t 'mailmap' < \
       .mailmap
+
+    test -e .mailmap-exclude \
+      && echo '[INFO] Found .mailmap-exclude file' \
+      && echo '  [INFO] Reading current .mailmap-exclude' \
+      && mapfile -t 'mailmap_exclude' < .mailmap-exclude
+
+    while (( "$#" )); do
+      case "$1" in
+        -e|--exclude)
+          mailmap_exclude+=("$2")
+          shift 2
+          ;;
+        *)
+          echo "Unknown option: $1"
+          exit 1
+          ;;
+      esac
+    done
 
     echo '[INFO] Veryfing .mailmap format'
     line_number=0
@@ -53,6 +73,14 @@ with nixpkgs; let
       echo "  [INFO] Veryfing: $author"
 
       found=false
+      for exclude in "''${mailmap_exclude[@]}"
+      do
+        if [[ $author =~ $exclude ]]
+        then
+          echo "  [INFO] Excluded: $author"
+          continue 2
+        fi
+      done
       for mapping in "''${mailmap[@]}"
       do
         if [[ $mapping == *"$author"* ]]
